@@ -7,20 +7,22 @@
 
 vec3 ray_color(const ray& r, const hittable& world){
     hit_record rec;
-
+    std::cout<<"in ray color!"<<std::endl;
     // 这束光线发生碰撞
     if(world.hit(r,0,infinity,rec)){
+        std::cout<<"hited!"<<std::endl;
         return 0.5*(rec.normal+vec3(1,1,1));
     }
     // 如果没有
     vec3 unit_direction = unit_vector(r.direction());
     auto t = 0.5*(unit_direction.y() + 1.0);
     return (1.0-t)*vec3(1.0,1.0,1.0)+t*vec3(0.5,0.7,1.0);
+    return 0.5*(vec3(1,1,1));
 }
 
 int main(){
-    const int image_width = 200;
-    const int image_height = 100;
+    const int image_width = 800;
+    const int image_height = 400;
 
     std::cout<< "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
@@ -31,7 +33,7 @@ int main(){
 
     hittable_list world;
 
-    world.add(make_shared<sphere>(vec3(0,0,01),0.5));
+    world.add(make_shared<sphere>(vec3(0,0,-1),0.5));
     world.add(make_shared<sphere>(vec3(0,-100.5,-1),100));
 
     for(int j = image_height-1; j>=0; --j){

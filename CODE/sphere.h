@@ -8,12 +8,15 @@ class sphere: public hittable {
     public:
         sphere(){}
         sphere(vec3 cen, double r):center(cen),radius(r){};
+        sphere(vec3 cen, double r,shared_ptr<material> m):
+            center(cen), radius(r), mat_ptr(m){};
 
         virtual bool hit(const ray& r, double t_min, double tmax, hit_record& rec) const;
 
     public:
         vec3 center;
         double radius;
+        shared_ptr<material> mat_ptr;
 };
 
 bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) const {
@@ -43,6 +46,7 @@ bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) cons
             vec3 outward_normal = (rec.p - center) / radius;
             // 保证法线和光线相反
             rec.set_face_normal(r,outward_normal);
+            rec.mat_ptr = mat_ptr;
             return true;
         }
         // 假设光线穿过小球，计算远端交点
@@ -55,7 +59,7 @@ bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) cons
             vec3 outward_normal = (rec.p - center) / radius;
             // 保证法线和光线相反
             rec.set_face_normal(r,outward_normal);
-
+            rec.mat_ptr = mat_ptr;
             return true;
         }
     }

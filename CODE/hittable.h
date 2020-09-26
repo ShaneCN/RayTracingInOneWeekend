@@ -3,6 +3,8 @@
 
 #include "ray.h"
 
+class material;
+
 struct hit_record
 {
     /* data */
@@ -10,6 +12,9 @@ struct hit_record
     vec3 p;
     // 法线
     vec3 normal;
+
+    shared_ptr<material> mat_ptr;
+
     // 交点距离离起点距离
     double t;
     // 是否是外部入射
