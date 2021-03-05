@@ -1,5 +1,5 @@
-Ray Tracing In One Weekend
-
+# Ray Tracing In One Weekend
+参照Ray Tracing In One Weekend实现的一个光线追踪场景
 
 ### 类定义 ###
 
